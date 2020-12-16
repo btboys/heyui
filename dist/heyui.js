@@ -1,6 +1,15 @@
 /**
   * heyui-gson - UI Toolkit for Web, Vue2.0.[ ____′↘夏悸增强版本]
   *
+  * @version v1.33.0
+  * @homepage https://www.gson.cn
+  * @copyright Copyright © 2017-present Lan
+  * @license MIT
+  */
+
+/**
+  * heyui-gson - UI Toolkit for Web, Vue2.0.[ ____′↘夏悸增强版本]
+  *
   * @version v1.32.0
   * @homepage https://www.gson.cn
   * @copyright Copyright © 2017-present Lan
