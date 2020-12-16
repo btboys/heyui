@@ -3,3 +3,5 @@ node_modules
 stat.json
 doc/dist
 lib
+.idea
+.github
