@@ -226,15 +226,15 @@ class Notify {
     };
 
     this.globalOkEvent = event => {
-      if (event.key === 'Enter' || event.key === 'Escape') {
+      if (event.key === 'Enter') {
         that.trigger('ok');
       }
     };
 
     this.globalEscEvent = event => {
       if (event.key === 'Escape') {
-        that.trigger('cancel');
         that.close();
+        that.trigger('cancel');
       }
     };
 
