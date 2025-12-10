@@ -147,7 +147,7 @@ class Notify {
     }
 
     let parentDom = param.parent || document.body;
-    if (param.type == 'h-notice' && parentDom.hasChildNodes()) {
+    if (param.type === 'h-notice' && parentDom.hasChildNodes()) {
       parentDom.insertBefore(el, parentDom.firstChild);
     } else {
       parentDom.appendChild(el);
@@ -168,7 +168,7 @@ class Notify {
         button.onclick = function(event) {
           let attr = event.target.getAttribute('attr');
           if (attr) {
-            if (attr == 'cancel') {
+            if (attr === 'cancel') {
               that.close();
             }
             that.trigger(attr);
@@ -215,7 +215,7 @@ class Notify {
       let modalBody = el.querySelector(`.${notifyWrapCls}`);
       if (modalBody) {
         modalBody.onclick = event => {
-          if (event.target == modalBody) {
+          if (event.target === modalBody) {
             this.close();
           }
         };
@@ -225,7 +225,23 @@ class Notify {
       this.close();
     };
 
+    this.globalOkEvent = event => {
+      if (event.key === 'Enter' || event.key === 'Escape') {
+        that.trigger('ok');
+      }
+    };
+
+    this.globalEscEvent = event => {
+      if (event.key === 'Escape') {
+        that.close();
+      }
+    };
+
     window.addEventListener('popstate', this.popstateEvent);
+    // 添加全局回车事件
+    document.addEventListener('keydown', this.globalOkEvent);
+    // 添加全局ESC事件
+    document.addEventListener('keydown', this.globalEscEvent);
   }
 
   trigger(event, ...data) {
@@ -249,11 +265,15 @@ class Notify {
     this.trigger('$close');
 
     window.removeEventListener('popstate', this.popstateEvent);
+    // 移除全局回车事件
+    document.removeEventListener('keydown', this.globalOkEvent);
+    // 移除全局ESC事件
+    document.removeEventListener('keydown', this.globalEscEvent);
 
     utils.removeClass(el, notifyShowCls);
 
     el.addEventListener('transitionend', event => {
-      if (event.target == this.$container) {
+      if (event.target === this.$container) {
         utils.removeDom(el);
       }
     });
