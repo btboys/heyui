@@ -233,6 +233,7 @@ class Notify {
 
     this.globalEscEvent = event => {
       if (event.key === 'Escape') {
+        that.trigger('cancel');
         that.close();
       }
     };
