@@ -64,7 +64,7 @@
                 {{ item[titleName] }} <i class="h-icon-right"></i>
               </li>
             </ul>
-            <ul style="flex: 1" class="h-select-ul" :class="{'h-select-ul-scroll':labels.length && !searchInput && !multiple}">
+            <ul style="flex: 1" class="h-select-ul" :class="{ 'h-select-ul-scroll': labels.length && !searchInput && !multiple }">
               <template v-for="(option, index) of filterOptions">
                 <li v-if="!option.hidden" :key="option[keyName]" :class="getLiCls(option, index)" @click="setvalue(option)">
                   <div v-if="!!optionRender" v-html="option[html]"></div>
@@ -451,7 +451,7 @@ export default {
       return utils.isNull(value) ? null : value;
     },
     setvalue(option) {
-      if (this.disabled) return;
+      if (this.disabled || !option) return;
       if (option.disabled || option.isLabel) return;
       let code = option[this.keyName];
       if (this.multiple) {
