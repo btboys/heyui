@@ -5,7 +5,7 @@
       <i v-if="toggleIcon" class="h-icon-down"></i>
     </div>
     <div :class="groupCls">
-      <slot v-if="isShow" name="content"></slot>
+      <slot name="content"></slot>
     </div>
   </div>
 </template>
@@ -57,7 +57,6 @@ export default {
   },
   data() {
     return {
-      isShow: false,
       dropdown: null,
       el: null
     };
@@ -110,7 +109,6 @@ export default {
         delay: this.delay,
         events: {
           show(event) {
-            that.isShow = true;
             that.$emit('show', event);
           },
           hide: () => {
