@@ -3,10 +3,11 @@
     <div :class="showCls">
       <template v-if="multiple">
         <div class="h-select-multiple-tags">
-          <span v-for="obj of objects" :key="obj[keyName]">
+          <span v-for="obj of shownObjects" :key="obj[keyName]">
             <span>{{ obj[titleName] }}</span
             ><i v-if="!disabled" class="h-icon-close-min" @click.stop="setvalue(obj)"></i>
           </span>
+          <span v-if="collapsedCount" class="h-select-collapsed-tag" :title="collapsedTitle"><span>+{{ collapsedCount }}</span></span>
           <input
             v-if="filterable || filter"
             v-model="searchInput"
@@ -113,6 +114,10 @@ export default {
     limit: {
       type: Number
     },
+    minCollapsedNum: {
+      type: Number,
+      default: 0
+    },
     deletable: {
       type: Boolean,
       default: () => config.getOption('select.deletable')
@@ -181,6 +186,24 @@ export default {
       } else {
         return null;
       }
+    },
+    shownObjects() {
+      if (!this.multiple || !Array.isArray(this.objects)) return [];
+      if (this.minCollapsedNum > 0 && this.objects.length > this.minCollapsedNum) {
+        return this.objects.slice(0, this.minCollapsedNum);
+      }
+      return this.objects;
+    },
+    collapsedCount() {
+      if (!this.multiple || !Array.isArray(this.objects) || this.minCollapsedNum <= 0) return 0;
+      return Math.max(0, this.objects.length - this.minCollapsedNum);
+    },
+    collapsedTitle() {
+      if (!this.collapsedCount) return '';
+      return this.objects
+        .slice(this.minCollapsedNum)
+        .map(obj => obj[this.titleName])
+        .join('、');
     },
     showEmptyContent() {
       return this.emptyContent || this.hlang('h.select.emptyContent');
