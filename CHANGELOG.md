@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.5.2](https://github.com/btboys/heyui/compare/v2.5.1...v2.5.2) (2026-10-19)
+
+
+### Bug Fixes
+
+* **dropdown-menu:** 修复弹层宽度塌缩导致菜单项逐字换行 ([db78b06](https://github.com/btboys/heyui/commit/db78b066))
+
 ### [2.5.1](https://github.com/btboys/heyui/compare/v1.26.1...v2.5.1) (2026-10-18)
 
 
